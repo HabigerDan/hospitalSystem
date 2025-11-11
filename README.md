@@ -11,5 +11,5 @@ javac -d out src/**/*.java
 **Run the main program:**
 
 ```bash
-java -cp out main
+java -cp out Main
 ```
