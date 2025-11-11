@@ -12,6 +12,11 @@ public class hospitalTechnician {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return technicianID + "," + name + "," + role;
+    }
+
     // Getters:
     public String getTechnicianID() {
         return technicianID;
