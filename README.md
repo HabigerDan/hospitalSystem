@@ -14,5 +14,5 @@ javac -d out src/**/*.java
 java -cp out Main
 ```
 
-Contributers:
-Ayan Asim, Austin Das, Dan Habiger, Harshith Jaladi, Tyler Mestery
+## Contributers:
+Ayan Asim, Austin Das, Dan Habiger, Harshith Jaladi, & Tyler Mestery
