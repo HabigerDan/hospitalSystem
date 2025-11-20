@@ -14,6 +14,19 @@ public class OnboardingService {
     private final Map<UUID, List<ChecklistItem>> itemsByChecklist = new HashMap<>();
     private final Map<Integer, List<Orientation>> orientationsByEmp = new HashMap<>();
 
+    // ONE data directory - used everywhere
+    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
+
+    // Constructor - load existing data on startup
+    public OnboardingService() {
+        try {
+            CsvSnapshot.loadAll(this, DATA_DIR);
+            System.out.println("Loaded " + employees.size() + " employees");
+        } catch (Exception e) {
+            System.out.println("Starting fresh - no existing data found");
+        }
+    }
+
     // create employee + checklist + default items
     public Employee createEmployee(String name, String email, LocalDate startDate) {
         int id = nextEmployeeId++;
@@ -24,6 +37,9 @@ public class OnboardingService {
         checklistsByEmp.put(id, cl);
         itemsByChecklist.put(cl.getId(), new ArrayList<>());
         addDefaultItems(cl, startDate);
+
+        System.out.println("Created employee id=" + id);
+        save(); // Save using CsvSnapshot
         return e;
     }
 
@@ -43,6 +59,10 @@ public class OnboardingService {
     // queries
     public List<Employee> listEmployees() {
         return new ArrayList<>(employees.values());
+    }
+
+    public Employee getEmployee(int employeeId) {
+        return employees.get(employeeId);
     }
 
     public Checklist getChecklistForEmployee(int employeeId) {
@@ -67,6 +87,7 @@ public class OnboardingService {
         Checklist cl = getChecklistForEmployee(employeeId);
         ChecklistItem it = findItem(cl.getId(), code);
         it.markDone(date);
+        save();
     }
 
     public Orientation scheduleOrientation(int employeeId, LocalDateTime when, String location, boolean placeholder) {
@@ -74,6 +95,8 @@ public class OnboardingService {
         orientationsByEmp.computeIfAbsent(employeeId, k -> new ArrayList<>()).add(o);
         if (!placeholder) {
             markItemDone(employeeId, ItemCode.ORIENTATION, when.toLocalDate());
+        } else {
+            save();
         }
         return o;
     }
@@ -98,7 +121,7 @@ public class OnboardingService {
         throw new NoSuchElementException("Checklist item not found: " + code);
     }
 
-    // loaders
+    // loaders (used by CsvSnapshot)
     public void clearAll() {
         nextEmployeeId = 1;
         employees.clear();
@@ -125,5 +148,28 @@ public class OnboardingService {
 
     public void loadOrientation(Orientation o) {
         orientationsByEmp.computeIfAbsent(o.getEmployeeId(), k -> new ArrayList<>()).add(o);
+    }
+
+    // ONE save method - uses CsvSnapshot only
+    public void save() {
+        try {
+            CsvSnapshot.saveAll(this, DATA_DIR);
+        } catch (Exception e) {
+            System.err.println("Warning: Could not save: " + e.getMessage());
+        }
+    }
+
+    // Reload from disk
+    public void reload() {
+        try {
+            CsvSnapshot.loadAll(this, DATA_DIR);
+        } catch (Exception e) {
+            System.err.println("Warning: Could not reload: " + e.getMessage());
+        }
+    }
+
+    // Get the data directory (for other managers to use same location)
+    public static String getDataDir() {
+        return DATA_DIR;
     }
 }

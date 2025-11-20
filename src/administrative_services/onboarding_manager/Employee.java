@@ -1,4 +1,5 @@
 package administrative_services.onboarding_manager;
+
 import java.time.LocalDate;
 
 public class Employee {
@@ -7,6 +8,7 @@ public class Employee {
     private String name;
     private String email;
     private LocalDate startDate;
+    private String status = "ACTIVE";
 
     public Employee(int id, String name, String email, LocalDate startDate) {
         this.id = id;
@@ -17,6 +19,14 @@ public class Employee {
 
     public int getId() {
         return id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getName() {

@@ -1,0 +1,45 @@
+Timestamp,Level,Action,Details
+2025-11-20T11:32:46.388223700,INFO,Access Change,Employee 1: Patient Records - GRANTED
+2025-11-20T11:32:46.388223700,INFO,Access Change,Employee 1: Lab Systems - GRANTED
+2025-11-20T11:32:46.388223700,INFO,Access Change,Employee 1: Prescription System - GRANTED
+2025-11-20T11:32:46.388223700,INFO,Access Change,Employee 1: Medical Floors - GRANTED
+2025-11-20T11:32:46.400223400,INFO,Badge Change,Employee 1: BDG-b5d05945 - ISSUED - Doctor
+2025-11-20T11:32:52.388643900,INFO,Access Change,Employee 2: Patient Records - GRANTED
+2025-11-20T11:32:52.388643900,INFO,Access Change,Employee 2: Lab Systems - GRANTED
+2025-11-20T11:32:52.388643900,INFO,Access Change,Employee 2: Prescription System - GRANTED
+2025-11-20T11:32:52.388643900,INFO,Access Change,Employee 2: Medical Floors - GRANTED
+2025-11-20T11:32:52.389656900,INFO,Badge Change,Employee 2: BDG-bbee9aff - ISSUED - Doctor
+2025-11-20T11:32:58.558636200,INFO,Access Change,Employee 3: Patient Records - GRANTED
+2025-11-20T11:32:58.558636200,INFO,Access Change,Employee 3: Medication System - GRANTED
+2025-11-20T11:32:58.558636200,INFO,Access Change,Employee 3: Medical Floors - GRANTED
+2025-11-20T11:32:58.559648400,INFO,Badge Change,Employee 3: BDG-6b97b9ec - ISSUED - Nurse
+2025-11-20T11:33:15.053771500,INFO,Badge Change,Employee 1: BDG-b5d05945 - REVOKED
+2025-11-20T11:33:15.053771500,INFO,Access Change,Employee 1: Patient Records - REVOKED
+2025-11-20T11:33:15.053771500,INFO,Access Change,Employee 1: Lab Systems - REVOKED
+2025-11-20T11:33:15.053771500,INFO,Access Change,Employee 1: Prescription System - REVOKED
+2025-11-20T11:33:15.053771500,INFO,Access Change,Employee 1: Medical Floors - REVOKED
+2025-11-20T11:33:15.054764300,INFO,Last day processed,Employee 1
+2025-11-20T11:33:40.776612400,INFO,Access Change,Employee 3: Medical Floors - REVOKED
+2025-11-20T11:34:16.825160400,INFO,Badge Change,Employee 3: BDG-6b97b9ec - REVOKED
+2025-11-20T11:34:16.825160400,INFO,Access Change,Employee 3: Patient Records - REVOKED
+2025-11-20T11:34:16.825160400,INFO,Access Change,Employee 3: Medication System - REVOKED
+2025-11-20T11:43:14.986558200,INFO,Access Change,Employee 1: Patient Records - GRANTED
+2025-11-20T11:43:14.986558200,INFO,Access Change,Employee 1: Lab Systems - GRANTED
+2025-11-20T11:43:14.986558200,INFO,Access Change,Employee 1: Prescription System - GRANTED
+2025-11-20T11:43:14.986558200,INFO,Access Change,Employee 1: Medical Floors - GRANTED
+2025-11-20T11:43:34.502401700,WARNING,No termination record,Employee 2
+2025-11-20T11:43:57.727534100,INFO,Badge Change,Employee 2: BDG-bbee9aff - REVOKED
+2025-11-20T11:43:57.728534500,INFO,Access Change,Employee 2: Patient Records - REVOKED
+2025-11-20T11:43:57.728534500,INFO,Access Change,Employee 2: Lab Systems - REVOKED
+2025-11-20T11:43:57.728534500,INFO,Access Change,Employee 2: Prescription System - REVOKED
+2025-11-20T11:43:57.728534500,INFO,Access Change,Employee 2: Medical Floors - REVOKED
+2025-11-20T12:34:02.215190300,INFO,Access Change,Employee 2: Patient Records - GRANTED
+2025-11-20T12:34:02.215190300,INFO,Access Change,Employee 2: Lab Systems - GRANTED
+2025-11-20T12:34:02.216190100,INFO,Access Change,Employee 2: Prescription System - GRANTED
+2025-11-20T12:34:02.216190100,INFO,Access Change,Employee 2: Medical Floors - GRANTED
+2025-11-20T12:34:02.229190600,INFO,Badge Change,Employee 2: BDG-288dc9a6 - ISSUED - Doctor
+2025-11-20T12:34:18.662210800,INFO,Badge Change,Employee 1: BDG-32c7ddf8 - REVOKED
+2025-11-20T12:34:18.662210800,INFO,Access Change,Employee 1: Patient Records - REVOKED
+2025-11-20T12:34:18.662210800,INFO,Access Change,Employee 1: Lab Systems - REVOKED
+2025-11-20T12:34:18.662210800,INFO,Access Change,Employee 1: Prescription System - REVOKED
+2025-11-20T12:34:18.662210800,INFO,Access Change,Employee 1: Medical Floors - REVOKED

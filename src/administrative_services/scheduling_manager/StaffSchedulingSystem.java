@@ -1,267 +1,288 @@
+package administrative_services.scheduling_manager;
 
+import administrative_services.onboarding_manager.Employee;
+import administrative_services.onboarding_manager.OnboardingService;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class StaffSchedulingSystem {
     private Scanner scanner;
-    private List<Staff> staffList;
-    private List<Schedule> schedules;
-    private SchedulingUser currentUser;
+    private OnboardingService onboardingService;
+    private ScheduleManager manager;
+
+    private static final String[] SHIFT_TIMES = {
+            "06:00-14:00 (Morning)", "14:00-22:00 (Evening)", "22:00-06:00 (Night)",
+            "08:00-16:00 (Day)", "09:00-17:00 (Standard)"
+    };
+
+    public static void main(String[] args) {
+        new StaffSchedulingSystem().run();
+    }
 
     public StaffSchedulingSystem() {
         scanner = new Scanner(System.in);
-        staffList = new ArrayList<>();
-        schedules = new ArrayList<>();
-        initializeSampleData();
-    }
-
-    private void initializeSampleData() {
-        currentUser = new SchedulingUser("U001", "Admin User", "Manager");
-        
-        staffList.add(new Staff("S001", "Alice Johnson", "alice@example.com"));
-        staffList.add(new Staff("S002", "Bob Smith", "bob@example.com"));
-        staffList.add(new Staff("S003", "Carol Williams", "carol@example.com"));
+        onboardingService = new OnboardingService();
+        manager = new ScheduleManager(onboardingService);
     }
 
     public void run() {
-        System.out.println("=== Staff Scheduling System ===");
-        System.out.println("Logged in as: " + currentUser.getName() + " (" + currentUser.getRole() + ")\n");
-        
+        System.out.println("=== Staff Scheduling ===\n");
+        mainMenu();
+        scanner.close();
+    }
+
+    private void mainMenu() {
         while (true) {
-            displayMenu();
-            int choice = getIntInput("Enter choice: ");
-            
+            System.out.println("\n===== SCHEDULING =====");
+            System.out.println("1. View Schedules");
+            System.out.println("2. Create Schedule");
+            System.out.println("3. Add Shift");
+            System.out.println("4. View Shifts");
+            System.out.println("5. Remove Shift");
+            System.out.println("0. Exit");
+
+            int choice = readInt("Select: ");
             switch (choice) {
-                case 1: createSchedule(); break;
-                case 2: addShift(); break;
-                case 3: assignStaffToShift(); break;
-                case 4: viewSchedules(); break;
-                case 5: generateCoverageReport(); break;
-                case 6: viewStaff(); break;
-                case 7: addStaff(); break;
-                case 8: 
-                    System.out.println("Exiting...");
+                case 1:
+                    viewSchedules();
+                    break;
+                case 2:
+                    createSchedule();
+                    break;
+                case 3:
+                    addShift();
+                    break;
+                case 4:
+                    viewShifts();
+                    break;
+                case 5:
+                    removeShift();
+                    break;
+                case 0:
                     return;
-                default:
-                    System.out.println("Invalid choice. Try again.");
             }
-            System.out.println();
         }
-    }
-
-    private void displayMenu() {
-        System.out.println("1. Create Schedule");
-        System.out.println("2. Add Shift to Schedule");
-        System.out.println("3. Assign Staff to Shift");
-        System.out.println("4. View Schedules");
-        System.out.println("5. Generate Coverage Report");
-        System.out.println("6. View Staff");
-        System.out.println("7. Add Staff");
-        System.out.println("8. Exit");
-    }
-
-    private void createSchedule() {
-        System.out.println("\n--- Create Schedule ---");
-        String periodId = getInput("Enter period ID: ");
-        LocalDate startDate = getDateInput("Enter start date (yyyy-MM-dd): ");
-        LocalDate endDate = getDateInput("Enter end date (yyyy-MM-dd): ");
-        
-        Schedule schedule = new Schedule(periodId, startDate, endDate, currentUser);
-        schedules.add(schedule);
-        System.out.println("Schedule created successfully!");
-    }
-
-    private void addShift() {
-        if (schedules.isEmpty()) {
-            System.out.println("No schedules available. Create a schedule first.");
-            return;
-        }
-        
-        System.out.println("\n--- Add Shift ---");
-        Schedule schedule = selectSchedule();
-        if (schedule == null) return;
-        
-        String shiftId = getInput("Enter shift ID: ");
-        LocalDate date = getDateInput("Enter date (yyyy-MM-dd): ");
-        LocalTime startTime = getTimeInput("Enter start time (HH:mm): ");
-        LocalTime endTime = getTimeInput("Enter end time (HH:mm): ");
-        String role = getInput("Enter role: ");
-        String location = getInput("Enter location: ");
-        
-        Shift shift = new Shift(shiftId, date, startTime, endTime, role, location);
-        schedule.addShift(shift);
-        System.out.println("Shift added successfully!");
-    }
-
-    private void assignStaffToShift() {
-        if (schedules.isEmpty()) {
-            System.out.println("No schedules available.");
-            return;
-        }
-        
-        System.out.println("\n--- Assign Staff to Shift ---");
-        Schedule schedule = selectSchedule();
-        if (schedule == null) return;
-        
-        List<Shift> unassigned = schedule.getShifts().stream()
-            .filter(s -> s.getAssignedStaff() == null)
-            .collect(Collectors.toList());
-        
-        if (unassigned.isEmpty()) {
-            System.out.println("No unassigned shifts available.");
-            return;
-        }
-        
-        System.out.println("Unassigned shifts:");
-        for (int i = 0; i < unassigned.size(); i++) {
-            System.out.println((i + 1) + ". " + unassigned.get(i));
-        }
-        
-        int shiftChoice = getIntInput("Select shift: ") - 1;
-        if (shiftChoice < 0 || shiftChoice >= unassigned.size()) {
-            System.out.println("Invalid selection.");
-            return;
-        }
-        
-        Shift shift = unassigned.get(shiftChoice);
-        Staff staff = selectStaff();
-        if (staff == null) return;
-        
-        ConflictCheck check = schedule.validateShift(shift, staff);
-        if (!check.isValid()) {
-            System.out.println("Cannot assign staff due to conflicts:");
-            check.getErrors().forEach(System.out::println);
-            return;
-        }
-        
-        shift.assignStaff(staff);
-        System.out.println("Staff assigned successfully!");
     }
 
     private void viewSchedules() {
-        if (schedules.isEmpty()) {
-            System.out.println("No schedules available.");
+        List<Schedule> list = manager.getSchedules();
+        if (list.isEmpty()) {
+            System.out.println("No schedules.");
             return;
         }
-        
-        System.out.println("\n--- Schedules ---");
-        for (Schedule schedule : schedules) {
-            System.out.println("\nPeriod: " + schedule.getPeriodId());
-            System.out.println("Dates: " + schedule.getStartDate() + " to " + schedule.getEndDate());
-            System.out.println("Status: " + schedule.getStatus());
-            System.out.println("Shifts:");
-            for (Shift shift : schedule.getShifts()) {
-                System.out.println("  " + shift);
+
+        System.out.println("\n--- SCHEDULES ---");
+        for (Schedule s : list) {
+            int count = manager.getShiftsForSchedule(s.getPeriodId()).size();
+            System.out.println(s.getPeriodId() + " | " + s.getStartDate() + " to " +
+                    s.getEndDate() + " | " + count + " shifts");
+        }
+    }
+
+    private void createSchedule() {
+        System.out.println("\n--- CREATE SCHEDULE ---");
+        LocalDate start = readDate("Start date [Enter=today]: ");
+        LocalDate end = readDate("End date [Enter=+7 days]: ");
+        if (end.isBefore(start))
+            end = start.plusDays(7);
+
+        Schedule s = manager.createSchedule(start, end);
+        System.out.println("Created: " + s.getPeriodId());
+    }
+
+    private void viewShifts() {
+        Schedule s = selectSchedule();
+        if (s == null)
+            return;
+
+        List<Shift> list = manager.getShiftsForSchedule(s.getPeriodId());
+        if (list.isEmpty()) {
+            System.out.println("No shifts.");
+            return;
+        }
+
+        System.out.println("\n--- SHIFTS ---");
+        for (Shift sh : list) {
+            String empName = "UNASSIGNED";
+            if (sh.isAssigned()) {
+                Employee emp = manager.getEmployeeById(sh.getEmployeeId());
+                if (emp != null)
+                    empName = emp.getName();
             }
+            System.out.println(sh.getShiftId() + " | " + sh.getDate() + " | " +
+                    sh.getStartTime() + "-" + sh.getEndTime() + " | " + empName);
         }
     }
 
-    private void generateCoverageReport() {
-        if (schedules.isEmpty()) {
-            System.out.println("No schedules available.");
+    private void addShift() {
+        Schedule s = selectSchedule();
+        if (s == null)
             return;
+
+        System.out.println("\n--- ADD SHIFT ---");
+
+        LocalDate date = readDate("Date [Enter=today]: ");
+
+        int timeChoice = selectFromOptions("Shift time:", SHIFT_TIMES);
+        if (timeChoice == -1)
+            return;
+
+        LocalTime start, end;
+        switch (timeChoice) {
+            case 1:
+                start = LocalTime.of(6, 0);
+                end = LocalTime.of(14, 0);
+                break;
+            case 2:
+                start = LocalTime.of(14, 0);
+                end = LocalTime.of(22, 0);
+                break;
+            case 3:
+                start = LocalTime.of(22, 0);
+                end = LocalTime.of(6, 0);
+                break;
+            case 4:
+                start = LocalTime.of(8, 0);
+                end = LocalTime.of(16, 0);
+                break;
+            default:
+                start = LocalTime.of(9, 0);
+                end = LocalTime.of(17, 0);
+                break;
         }
-        
-        System.out.println("\n--- Generate Coverage Report ---");
-        Schedule schedule = selectSchedule();
-        if (schedule == null) return;
-        
-        LocalDate date = getDateInput("Enter date for report (yyyy-MM-dd): ");
-        CoverageReport report = schedule.generateCoverageReport(date);
-        System.out.println("\n" + report);
+
+        // select employee
+        Employee emp = selectEmployee();
+
+        Shift shift = manager.addShift(s.getPeriodId(), date, start, end);
+
+        if (emp != null) {
+            String error = manager.assignEmployee(shift, emp);
+            if (error != null) {
+                System.out.println("Shift added but: " + error);
+            } else {
+                System.out.println("Shift added: " + emp.getName() + " on " + date);
+            }
+        } else {
+            System.out.println("Shift added (unassigned)");
+        }
     }
 
-    private void viewStaff() {
-        System.out.println("\n--- Staff List ---");
-        staffList.forEach(System.out::println);
+    private void removeShift() {
+        Schedule s = selectSchedule();
+        if (s == null)
+            return;
+
+        Shift shift = selectShift(s.getPeriodId());
+        if (shift == null)
+            return;
+
+        if (!confirm("Remove shift?"))
+            return;
+
+        manager.removeShift(shift.getShiftId());
+        System.out.println("Removed.");
     }
 
-    private void addStaff() {
-        System.out.println("\n--- Add Staff ---");
-        String staffId = getInput("Enter staff ID: ");
-        String name = getInput("Enter name: ");
-        String email = getInput("Enter email: ");
-        
-        Staff staff = new Staff(staffId, name, email);
-        staffList.add(staff);
-        System.out.println("Staff added successfully!");
-    }
-
+    // helpers
     private Schedule selectSchedule() {
-        System.out.println("Available schedules:");
-        for (int i = 0; i < schedules.size(); i++) {
-            System.out.println((i + 1) + ". " + schedules.get(i).getPeriodId());
-        }
-        
-        int choice = getIntInput("Select schedule: ") - 1;
-        if (choice < 0 || choice >= schedules.size()) {
-            System.out.println("Invalid selection.");
+        List<Schedule> list = manager.getSchedules();
+        if (list.isEmpty()) {
+            System.out.println("No schedules. Create one first.");
             return null;
         }
-        
-        return schedules.get(choice);
+
+        String[] opts = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            opts[i] = list.get(i).getPeriodId() + " (" + list.get(i).getStartDate() + ")";
+        }
+
+        int c = selectFromOptions("Select schedule:", opts);
+        return c == -1 ? null : list.get(c - 1);
     }
 
-    private Staff selectStaff() {
-        System.out.println("Available staff:");
-        for (int i = 0; i < staffList.size(); i++) {
-            System.out.println((i + 1) + ". " + staffList.get(i));
-        }
-        
-        int choice = getIntInput("Select staff: ") - 1;
-        if (choice < 0 || choice >= staffList.size()) {
-            System.out.println("Invalid selection.");
+    private Shift selectShift(String scheduleId) {
+        List<Shift> list = manager.getShiftsForSchedule(scheduleId);
+        if (list.isEmpty()) {
+            System.out.println("No shifts.");
             return null;
         }
-        
-        return staffList.get(choice);
+
+        String[] opts = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            Shift sh = list.get(i);
+            String who = sh.isAssigned() ? (manager.getEmployeeById(sh.getEmployeeId()) != null
+                    ? manager.getEmployeeById(sh.getEmployeeId()).getName()
+                    : "?") : "UNASSIGNED";
+            opts[i] = sh.getDate() + " " + sh.getStartTime() + "-" + sh.getEndTime() + " (" + who + ")";
+        }
+
+        int c = selectFromOptions("Select shift:", opts);
+        return c == -1 ? null : list.get(c - 1);
     }
 
-    private String getInput(String prompt) {
+    private Employee selectEmployee() {
+        List<Employee> list = manager.getEmployees();
+        List<Employee> active = new ArrayList<>();
+
+        for (Employee e : list) {
+            if (!e.getStatus().equals("TERMINATED")) {
+                active.add(e);
+            }
+        }
+
+        if (active.isEmpty()) {
+            System.out.println("No employees. Add through onboarding first.");
+            return null;
+        }
+
+        String[] opts = new String[active.size()];
+        for (int i = 0; i < active.size(); i++) {
+            opts[i] = active.get(i).getName();
+        }
+
+        int c = selectFromOptions("Select employee (0 for unassigned):", opts);
+        return c == -1 ? null : active.get(c - 1);
+    }
+
+    private int selectFromOptions(String prompt, String[] options) {
+        System.out.println("\n" + prompt);
+        for (int i = 0; i < options.length; i++) {
+            System.out.println((i + 1) + ". " + options[i]);
+        }
+        System.out.println("0. Cancel");
+
+        int c = readInt("Select: ");
+        return (c < 1 || c > options.length) ? -1 : c;
+    }
+
+    private boolean confirm(String msg) {
+        System.out.println(msg + " (1=Yes, 0=No)");
+        return readInt("") == 1;
+    }
+
+    private int readInt(String prompt) {
+        if (!prompt.isEmpty())
+            System.out.print(prompt);
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    private LocalDate readDate(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine().trim();
-    }
-
-    private int getIntInput(String prompt) {
-        while (true) {
-            try {
-                System.out.print(prompt);
-                return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number. Try again.");
-            }
+        String in = scanner.nextLine().trim();
+        if (in.isEmpty())
+            return LocalDate.now();
+        try {
+            return LocalDate.parse(in);
+        } catch (Exception e) {
+            return LocalDate.now();
         }
-    }
-
-    private LocalDate getDateInput(String prompt) {
-        while (true) {
-            try {
-                String input = getInput(prompt);
-                return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
-            } catch (Exception e) {
-                System.out.println("Invalid date format. Use yyyy-MM-dd");
-            }
-        }
-    }
-
-    private LocalTime getTimeInput(String prompt) {
-        while (true) {
-            try {
-                String input = getInput(prompt);
-                return LocalTime.parse(input, DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (Exception e) {
-                System.out.println("Invalid time format. Use HH:mm");
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        StaffSchedulingSystem system = new StaffSchedulingSystem();
-        system.run();
     }
 }

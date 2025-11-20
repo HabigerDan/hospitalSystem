@@ -1,39 +1,61 @@
+package administrative_services.scheduling_manager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Duration;
 
 public class Shift {
     private String shiftId;
+    private String scheduleId;
+    private int employeeId;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String role;
-    private String location;
-    private Staff assignedStaff;
 
-    public Shift(String shiftId, LocalDate date, LocalTime startTime, LocalTime endTime, String role, String location) {
+    public Shift(String shiftId, String scheduleId, LocalDate date,
+            LocalTime startTime, LocalTime endTime) {
         this.shiftId = shiftId;
+        this.scheduleId = scheduleId;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.role = role;
-        this.location = location;
+        this.employeeId = -1;
     }
 
-    public String getShiftId() { return shiftId; }
-    public LocalDate getDate() { return date; }
-    public LocalTime getStartTime() { return startTime; }
-    public LocalTime getEndTime() { return endTime; }
-    public String getRole() { return role; }
-    public String getLocation() { return location; }
-    public Staff getAssignedStaff() { return assignedStaff; }
-    
-    public void assignStaff(Staff staff) { this.assignedStaff = staff; }
+    public String getShiftId() {
+        return shiftId;
+    }
 
-    @Override
-    public String toString() {
-        String assignment = assignedStaff != null ? assignedStaff.getName() : "UNASSIGNED";
-        return String.format("Shift[%s: %s %s-%s, %s @ %s, Staff: %s]", 
-            shiftId, date, startTime, endTime, role, location, assignment);
+    public String getScheduleId() {
+        return scheduleId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public boolean isAssigned() {
+        return employeeId > 0;
+    }
+
+    public void setEmployeeId(int id) {
+        this.employeeId = id;
+    }
+
+    public int getHours() {
+        long hours = Duration.between(startTime, endTime).toHours();
+        return hours < 0 ? (int) (hours + 24) : (int) hours;
     }
 }
