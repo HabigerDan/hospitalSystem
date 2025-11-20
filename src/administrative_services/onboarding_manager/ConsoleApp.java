@@ -8,7 +8,7 @@ public class ConsoleApp {
 
     private static final Scanner sc = new Scanner(System.in);
     private static final OnboardingService svc = new OnboardingService();
-    private static final String DATA_DIR = "data";
+    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
 
     public static void main(String[] args) {
         CsvSnapshot.loadAll(svc, DATA_DIR);

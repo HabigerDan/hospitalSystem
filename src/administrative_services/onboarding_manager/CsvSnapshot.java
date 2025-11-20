@@ -1,4 +1,5 @@
 package administrative_services.onboarding_manager;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.time.LocalDate;
@@ -20,19 +21,18 @@ public final class CsvSnapshot {
 
             svc.clearAll();
 
-            // employees.csv  id,name,email,startDate
+            // employees.csv id,name,email,startDate
             for (String[] r : read(base.resolve("employees.csv"))) {
                 svc.loadEmployee(new Employee(
-                        Integer.parseInt(r[0].trim()), r[1], r[2], LocalDate.parse(r[3])
-                ));
+                        Integer.parseInt(r[0].trim()), r[1], r[2], LocalDate.parse(r[3])));
             }
 
-            // checklists.csv  id,employeeId
+            // checklists.csv id,employeeId
             for (String[] r : read(base.resolve("checklists.csv"))) {
                 svc.loadChecklist(new Checklist(UUID.fromString(r[0]), Integer.parseInt(r[1].trim())));
             }
 
-            // checklist_items.csv  id,checklistId,code,dueDate,completedOn
+            // checklist_items.csv id,checklistId,code,dueDate,completedOn
             for (String[] r : read(base.resolve("checklist_items.csv"))) {
                 String codeStr = r[2];
                 ItemCode code;
@@ -50,23 +50,21 @@ public final class CsvSnapshot {
                         UUID.fromString(r[0]),
                         UUID.fromString(r[1]),
                         code,
-                        due
-                );
+                        due);
                 if (done != null) {
                     it.markDone(done);
                 }
                 svc.loadChecklistItem(it);
             }
 
-            // orientations.csv  id,employeeId,dateTime,location,placeholder
+            // orientations.csv id,employeeId,dateTime,location,placeholder
             for (String[] r : read(base.resolve("orientations.csv"))) {
                 svc.loadOrientation(new Orientation(
                         UUID.fromString(r[0]),
                         Integer.parseInt(r[1].trim()),
                         LocalDateTime.parse(r[2]),
                         r[3],
-                        Boolean.parseBoolean(r[4])
-                ));
+                        Boolean.parseBoolean(r[4])));
             }
 
         } catch (Exception ex) {
@@ -83,7 +81,8 @@ public final class CsvSnapshot {
             // employees.csv
             List<String> empLines = new ArrayList<>();
             for (Employee e : svc.listEmployees()) {
-                empLines.add(e.getId() + "," + esc(e.getName()) + "," + esc(e.getEmail()) + "," + e.getStartDate());
+                empLines.add(e.getId() + "," + e.getName() + "," + e.getEmail() + "," +
+                        e.getStartDate() + "," + e.getStatus());
             }
             write(base.resolve("employees.csv"), "id,name,email,startDate", empLines);
 
@@ -106,7 +105,8 @@ public final class CsvSnapshot {
             List<String> oriLines = new ArrayList<>();
             for (Employee e : svc.listEmployees()) {
                 for (Orientation o : svc.listOrientations(e.getId())) {
-                    oriLines.add(o.getId() + "," + e.getId() + "," + o.getDateTime() + "," + esc(o.getLocation()) + "," + o.isPlaceholder());
+                    oriLines.add(o.getId() + "," + e.getId() + "," + o.getDateTime() + "," + esc(o.getLocation()) + ","
+                            + o.isPlaceholder());
                 }
             }
             write(base.resolve("orientations.csv"), "id,employeeId,dateTime,location,placeholder", oriLines);
