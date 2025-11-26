@@ -1,11 +1,12 @@
 package medical_services.schedule;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Scanner;
 
-import medical_services.request_test.Doctor;
-import medical_services.request_test.Patient;
+import medical_services.request_test_and_update_patient_record.Doctor;
+import medical_services.request_test_and_update_patient_record.Patient;
 
 public class AppointmentUI {
 

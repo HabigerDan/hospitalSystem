@@ -1,4 +1,4 @@
-package medical_services.request_test;
+package medical_services.request_test_and_update_patient_record;
 
 public class MedicalRecord {
 

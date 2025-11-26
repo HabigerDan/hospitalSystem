@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-import medical_services.request_test.*;
+import medical_services.request_test_and_update_patient_record.*;
 
 public class MedMain 
 {

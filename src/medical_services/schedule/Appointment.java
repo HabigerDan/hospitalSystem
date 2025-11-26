@@ -1,6 +1,7 @@
 package medical_services.schedule;
 
 import java.time.LocalDateTime;
+
 import java.util.UUID;
 
 public class Appointment {

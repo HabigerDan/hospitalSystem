@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.UUID;
 
-import medical_services.request_test.Doctor;
-import medical_services.request_test.Patient;
-import medical_services.request_test.MedicalSystem;
+import medical_services.request_test_and_update_patient_record.Doctor;
+import medical_services.request_test_and_update_patient_record.MedicalSystem;
+import medical_services.request_test_and_update_patient_record.Patient;
 import medical_services.schedule.AppointmentController;
 import medical_services.schedule.AppointmentUI;
 

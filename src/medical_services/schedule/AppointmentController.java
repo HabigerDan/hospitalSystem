@@ -1,11 +1,12 @@
 package medical_services.schedule;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import medical_services.request_test.Doctor;
-import medical_services.request_test.Patient;
+import medical_services.request_test_and_update_patient_record.Doctor;
+import medical_services.request_test_and_update_patient_record.Patient;
 
 public class AppointmentController {
 
@@ -27,9 +28,9 @@ public class AppointmentController {
     public List<LocalDateTime> findAvailableSlots(Doctor doc, Patient pat) {
         List<LocalDateTime> slots = new ArrayList<>();
        
-        slots.add(LocalDateTime.now().plusDays(1).withHour(9).withMinute(0).withSecond(0).withNano(0));
-        slots.add(LocalDateTime.now().plusDays(1).withHour(11).withMinute(0).withSecond(0).withNano(0));
-        slots.add(LocalDateTime.now().plusDays(1).withHour(14).withMinute(0).withSecond(0).withNano(0));
+        slots.add(LocalDateTime.now().plusDays(1).withHour(9).withMinute(0).withSecond(0));
+        slots.add(LocalDateTime.now().plusDays(1).withHour(11).withMinute(0).withSecond(0));
+        slots.add(LocalDateTime.now().plusDays(1).withHour(14).withMinute(0).withSecond(0));
         return slots;
     }
 
