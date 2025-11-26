@@ -1,4 +1,4 @@
-package support_services.room_cleanliness_manager;
+package room_cleanliness_manager;
 
 import java.io.*;
 import java.time.LocalDateTime;

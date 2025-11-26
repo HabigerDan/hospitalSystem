@@ -1,4 +1,4 @@
-package support_services.waste_disposal_manager;
+package waste_disposal_manager;
 
 import java.io.*;
 import java.time.LocalDateTime;
