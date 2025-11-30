@@ -23,4 +23,8 @@ public class Patient {
 	    public String getRoom() {
 	    	return roomNumber;
 	    }
+		public String getPatientID() {
+       		return patientID;
+        }
+
 }

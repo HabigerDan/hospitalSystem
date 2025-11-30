@@ -8,4 +8,12 @@ public class Nurse {
         this.nurseID = nurseID;
         this.name = name;
     }
+
+    public String getNurseID() {
+        return nurseID;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
