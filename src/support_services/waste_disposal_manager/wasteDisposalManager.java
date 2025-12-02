@@ -86,8 +86,6 @@ public class wasteDisposalManager {
                     System.out.println("Invalid choice.");
             }
         }
-
-        sc.close();
     }
 
     private void menuAddWaste(Scanner sc) {
