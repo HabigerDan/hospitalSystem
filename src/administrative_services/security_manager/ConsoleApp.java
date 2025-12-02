@@ -20,7 +20,6 @@ public class ConsoleApp {
 
         mainMenu();
         onboardingService.save();
-        scanner.close();
     }
 
     private static void mainMenu() {

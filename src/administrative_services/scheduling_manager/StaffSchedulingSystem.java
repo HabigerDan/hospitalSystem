@@ -31,7 +31,6 @@ public class StaffSchedulingSystem {
     public void run() {
         System.out.println("=== Staff Scheduling ===\n");
         mainMenu();
-        scanner.close();
     }
 
     private void mainMenu() {
