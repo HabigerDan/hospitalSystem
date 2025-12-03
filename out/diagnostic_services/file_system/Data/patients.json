@@ -1,0 +1,42 @@
+[
+	{
+		"firstName": "Brok",
+		"lastName": "Nee",
+		"id": 8934
+	},
+	
+	{
+		"firstName": "Fig",
+		"lastName": "Au",
+		"id": 7364,
+		"prevCharts": [
+			{
+				"patientId": 7364,
+				"chartId": 8972,
+				"userIdIss": 1234,
+				"dateIss": "Nov 6, 2025",
+				"others": [9852, 6928],
+				"allergies": "Staying Alive",
+				"additionalNotes": "No clue what the hell is wrong with them."
+			},
+			{
+				"patientId": 7364,
+				"chartId": 9235,
+				"userIdIss": 1234,
+				"dateIss": "Nov 8, 2025",
+				"others": [6928],
+				"allergies": "DED",
+				"additionalNotes": "Send to morgue."
+			},
+			{
+				"patientId": 7364,
+				"chartId": 2349,
+				"userIdIss": 1234,
+				"dateIss": "Nov 10, 2025",
+				"others": [],
+				"allergies": "Alive?",
+				"additionalNotes": "Check pulse."
+			}
+		]
+	}
+],
