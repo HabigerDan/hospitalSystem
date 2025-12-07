@@ -1,6 +1,7 @@
 package food_nutrition_manager;
 
 public class MealOrder {
+
     private int orderId;
     private String orderDate;
     private String mealType;
@@ -29,7 +30,20 @@ public class MealOrder {
         this.status = "Confirmed";
     }
 
-    // getters and setters
+    // setters
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+    }
+
+    public void setKitchen(Kitchen kitchen) {
+        this.kitchen = kitchen;
+    }
+
+    // getters
     public int getOrderId() {
         return orderId;
     }
