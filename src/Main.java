@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import administrative_services.onboarding_manager.ConsoleApp;
 import administrative_services.compensation_manager.CompensationConsoleApp;
-=======
->>>>>>> a47fbe0a84352a08c90a47b7d8fbd2702dc3b3da
 import administrative_services.scheduling_manager.StaffSchedulingSystem;
 import diagnostic_services.DiagMain;
 import food_nutrition_manager.FoodAndNutritionManager;
