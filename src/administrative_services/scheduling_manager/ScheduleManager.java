@@ -15,7 +15,7 @@ public class ScheduleManager {
     private List<Schedule> schedules;
     private List<Shift> shifts;
 
-    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
+    private static final String DATA_DIR = "src/administrative_services/data/";
     private static final String SCHEDULES_FILE = DATA_DIR + "schedules.csv";
     private static final String SHIFTS_FILE = DATA_DIR + "shifts.csv";
 
