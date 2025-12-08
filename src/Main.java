@@ -1,4 +1,5 @@
 import administrative_services.onboarding_manager.ConsoleApp;
+import administrative_services.compensation_manager.CompensationConsoleApp;
 import administrative_services.scheduling_manager.StaffSchedulingSystem;
 import diagnostic_services.DiagMain;
 import java.util.Scanner;
@@ -51,6 +52,7 @@ public class Main {
             System.out.println("1. Onboarding Manager");
             System.out.println("2. Security Manager");
             System.out.println("3. Staff Scheduling");
+            System.out.println("4. Compensation Manager");
             System.out.println("0. Back to Main Menu");
             System.out.println("------------------------------------------------------------------------");
             System.out.print("Enter your choice: ");
@@ -67,6 +69,9 @@ public class Main {
                 case "3" -> {
                     StaffSchedulingSystem.main(new String[] {});
                 }
+                case "4" -> {
+                    administrative_services.compensation_manager.CompensationConsoleApp.main(new String[] {});
+            }
                 case "0" -> inAdminMenu = false;
                 default -> System.out.println("Invalid choice.");
             }
