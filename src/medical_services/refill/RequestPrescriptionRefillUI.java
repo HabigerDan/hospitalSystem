@@ -1,6 +1,7 @@
 package medical_services.refill;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -196,8 +197,7 @@ public class RequestPrescriptionRefillUI {
             System.out.println("RefillRequest ID: " + request.getRefillRequestID()
                     + " | status: " + request.getStatus());
 
-            // Step 8: doctor approves
-            //System.out.println("Doctor approves the request.");
+            // doctor approves
             System.out.print("Approve this refill now? (yes/no): ");
             String approve = scanner.nextLine().trim().toLowerCase();
 
