@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 import administrative_services.onboarding_manager.ConsoleApp;
 import administrative_services.compensation_manager.CompensationConsoleApp;
+=======
+>>>>>>> a47fbe0a84352a08c90a47b7d8fbd2702dc3b3da
 import administrative_services.scheduling_manager.StaffSchedulingSystem;
 import diagnostic_services.DiagMain;
+import food_nutrition_manager.FoodAndNutritionManager;
 import java.util.Scanner;
 import nursing_services.NurMain;
-import support_services.equipment_inventory_manager.equipmentInventoryManager;
 import support_services.cleaningStaff;
+import support_services.equipment_inventory_manager.equipmentInventoryManager;
+import support_services.food_nutrition_manager.FoodAndNutritionManager;
 
 public class Main {
     private static Boolean running;
@@ -98,6 +103,7 @@ public class Main {
         System.out.println("---------------------------------Support Services Menu---------------------------------");
         System.out.println("1. Maintenance Staff");
         System.out.println("2. Cleaning Staff");
+        System.out.println("3. Nutrition Staff");
         System.out.println("---------------------------------------------------------------------------");
         supportServicesMenu();
     }
@@ -110,6 +116,7 @@ public class Main {
         switch (choice) {
             case "1" -> equipmentInventoryManager.main(new String[] {});
             case "2" -> cleaningStaff.main(new String[] {});
+            case "3" -> FoodAndNutritionManager.main(new String[] {});
             default -> running = false;
         }
     }

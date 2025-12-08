@@ -1,0 +1,22 @@
+[
+	{
+		"id": 9534,
+		"emts": [9083, 9873],
+		"patient": 8934,
+		"notes": "GAVE EVERYTHING WE HAVE, STILL DYING. REPEAT STILL DYING."
+	},
+
+	{
+		"id": 8753,
+		"emts": [9083, 6754],
+		"patient": 8934,
+		"notes": "WE RAN OUT OF STUFF TO GIVE."
+	},
+
+	{
+		"id": 4328,
+		"emts": [6754, 9873],
+		"patient": 7364,
+		"notes": "Patient replaced."
+	}
+]

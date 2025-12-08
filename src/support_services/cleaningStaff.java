@@ -100,18 +100,10 @@ public class cleaningStaff {
 
         System.out.println("Welcome " + staff.getUsername() + " (" + staff.getRole() + ")");
 
-        System.out.println("Choose module:");
-        System.out.println("1. Room Cleanliness Manager");
-        System.out.println("2. Waste Disposal Manager");
-        System.out.print("Enter choice: ");
-        int choice = sc.nextInt();
-
-        if (choice == 1) {
+        if ((staff.getRole()).equals("Room Cleaner")) {
             roomCleanlinessManager.main(null);
-        } else if (choice == 2) {
-            wasteDisposalManager.main(null);
         } else {
-            System.out.println("Invalid choice. Exiting.");
+            wasteDisposalManager.main(null);
         }
     }
 }

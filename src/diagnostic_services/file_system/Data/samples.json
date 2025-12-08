@@ -1,0 +1,33 @@
+[
+	{
+		"id": 1,
+		"sampleType": "Doughnut",
+		"status": "IN_PROGRESS",
+		"patient": 8934,
+		"results": "Additional Notes: Certified Fat-Ass, Cholorestreol: NULL"
+	},
+
+	{
+		"id": 2,
+		"sampleType": "Mac n' Roni",
+		"status": "PENDING",
+		"patient": 8934,
+		"results": "Covid-19: NULL, Flu: NULL, Xtra: NULL, Prognosis: NULL"
+	},
+
+	{
+		"id": 3,
+		"sampleType": "BIGUS",
+		"status": "CANCELLED",
+		"patient": 8934,
+		"results": ""
+	},
+
+	{
+		"id": 4,
+		"sampleType": "Cheese",
+		"status": "COMPLETED",
+		"patient": 7364,
+		"results": "Blood Pressure: Impossibly High, Cholesterol: Down in hell"
+	}
+]

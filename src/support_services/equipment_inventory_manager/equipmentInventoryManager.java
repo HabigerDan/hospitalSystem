@@ -26,10 +26,10 @@ public class equipmentInventoryManager {
         loadInventory();
         loadEquipment();
 
-        System.out.println("\n\n\nAre you a Hospital Technician? Y(yes) OR N(no):");
-        String loginTechnician = scanner.next();
+        System.out.println("\n\n\nAre you a Hospital Technician? Yes (1) OR No (2):");
+        int choice = Integer.parseInt(scanner.nextLine());
 
-        if (loginTechnician.equalsIgnoreCase("Y")) {
+        if (choice == 1) {
             loginTechnician();
             setTechnicianDetails();
             displayTechnicianDetails();
@@ -38,9 +38,17 @@ public class equipmentInventoryManager {
             System.out.println("\n\n\n--------------------Logging Out--------------------");
         }
 
-        saveInventory();
-        saveEquipment();
-        saveTechnicians();
+        if (hospitalTech != null) {
+            saveTechnicians();
+        }
+
+        if (inventory != null) {
+            saveInventory();
+        }
+
+        if (equipmentList != null) {
+            saveEquipment();
+        }
     }
 
     public equipmentInventoryManager(String systemID) {

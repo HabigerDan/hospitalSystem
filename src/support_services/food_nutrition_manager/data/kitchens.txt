@@ -1,0 +1,2 @@
+KitchenID: 56, Status: Busy, UpdatedBy: Manager 1234
+KitchenID: 1234, Status: Available, UpdatedBy: Manager 555

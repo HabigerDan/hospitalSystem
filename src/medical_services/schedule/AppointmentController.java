@@ -2,6 +2,7 @@ package medical_services.schedule;
 
 import java.time.LocalDateTime;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,4 +46,6 @@ public class AppointmentController {
     public List<Appointment> getAllAppointments() {
         return appointments;
     }
+    
+  
 }
