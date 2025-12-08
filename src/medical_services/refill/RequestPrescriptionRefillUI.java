@@ -64,7 +64,7 @@ public class RequestPrescriptionRefillUI {
    
 
     private void setupData(Doctor doctor) {
-        // Reuse similar patients as in MedicalUseCaseSelector
+        
         Patient p1 = new Patient(UUID.randomUUID(), "Ayan Asim", LocalDate.of(2002, 5, 12));
         Patient p2 = new Patient(UUID.randomUUID(), "Asim Qureshi", LocalDate.of(1980, 6, 6));
         Patient p3 = new Patient(UUID.randomUUID(), "Hira Asim", LocalDate.of(1980, 1, 12));
