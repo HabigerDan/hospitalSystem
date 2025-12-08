@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AuditLog {
     private List<LogEntry> entries;
-    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
+    private static final String DATA_DIR = "src/administrative_services/data/";
     private static final String AUDIT_LOG_CSV = DATA_DIR + "audit_log.csv";
 
     public enum LogLevel {

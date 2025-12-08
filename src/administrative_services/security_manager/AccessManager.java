@@ -15,7 +15,7 @@ public class AccessManager {
     private HashMap<Integer, List<Access>> accessMap;
     private AuditLog auditLog;
 
-    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
+    private static final String DATA_DIR = "src/administrative_services/data/";
     private static final String BADGES_FILE = DATA_DIR + "badges.csv";
     private static final String ACCESS_FILE = DATA_DIR + "access.csv";
 

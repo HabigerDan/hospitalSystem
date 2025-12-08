@@ -15,7 +15,7 @@ public class OnboardingService {
     private final Map<Integer, List<Orientation>> orientationsByEmp = new HashMap<>();
 
     // ONE data directory - used everywhere
-    private static final String DATA_DIR = "hospitalSystem/src/administrative_services/data/";
+    private static final String DATA_DIR = "src/administrative_services/data/";
 
     // Constructor - load existing data on startup
     public OnboardingService() {
