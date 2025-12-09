@@ -197,12 +197,12 @@ public class RequestPrescriptionRefillUI {
             System.out.println("RefillRequest ID: " + request.getRefillRequestID()
                     + " | status: " + request.getStatus());
 
-            // doctor approves
+            // doctor approves/disapproves
             System.out.print("Approve this refill now? (yes/no): ");
             String approve = scanner.nextLine().trim().toLowerCase();
 
             if (!approve.startsWith("y")) {
-                System.out.println("Refill request left in PENDING state. Ending use case.");
+                System.out.println("Refill request left in PENDING state.");
                 return;
             }
 
