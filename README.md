@@ -1,4 +1,4 @@
-# Hospital System
+# COM S 362 Final Project - Hospital System
 
 A Java-based application that manages various hospital services, including administrative, diagnostic, medical, nursing, and support operations.
 
